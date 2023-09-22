@@ -36,7 +36,7 @@ CREATE TABLE `college` (
 
 LOCK TABLES `college` WRITE;
 /*!40000 ALTER TABLE `college` DISABLE KEYS */;
-INSERT INTO `college` VALUES ('College of Engineering','789 Engineering Avenue  Room 101','(666) 123-4567'),('Health and Wellness College','567 Wellness Center Suite 33','(666) 123-4567'),('Liberal Arts College','123 Main Street Suite 400','(666) 123-4567');
+INSERT INTO `college` VALUES ('Business College','321 Commerce Plaza Office 210','(666) 123-4567'),('College of Engineering','789 Engineering Avenue  Room 101','(666) 123-4567'),('Health and Wellness College','567 Wellness Center Suite 33','(666) 123-4567'),('Liberal Arts College','123 Main Street Suite 400','(666) 123-4567'),('Music Academy College','Melody Lane Office 300','(666) 123-4567');
 /*!40000 ALTER TABLE `college` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +67,7 @@ CREATE TABLE `course` (
 
 LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
-INSERT INTO `course` VALUES (155,'Public Health',3,1,'related to public health principles, epidemiology, health policy, and disease prevention','Nursing',100),(255,'OOP',3,1,'OOP is a programming paradigm that is widely used in software development','Computer Science',200),(355,'Art History',3,2,'focuses on the history of art, art movements, and the critical analysis of art','Art',300);
+INSERT INTO `course` VALUES (119,'Programming Concepts',3,1,'Programming Concepts course is a foundation for programming','Computer Engineering',500),(155,'Public Health',3,1,'related to public health principles, epidemiology, health policy, and disease prevention','Nursing',100),(255,'OOP',3,1,'OOP is a programming paradigm that is widely used in software development','Computer Science',200),(355,'Art History',3,2,'focuses on the history of art, art movements, and the critical analysis of art','Art',300),(455,' Marketing and Sales',3,4,'marketing strategies, market research, product development, branding','Business Administration',400);
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,7 +100,7 @@ CREATE TABLE `dept` (
 
 LOCK TABLES `dept` WRITE;
 /*!40000 ALTER TABLE `dept` DISABLE KEYS */;
-INSERT INTO `dept` VALUES ('Art',300,'Arts Building, Room 300','(555) 555-1234','1888-08-10','Liberal Arts College',1),('Computer Science',200,'Engineering Building, Room 203','(555) 123-4567','1990-01-01','College of Engineering',3),('Nursing',100,'Health Building, Suite 33','(666) 321-6789','1890-09-05','Health and Wellness College',2);
+INSERT INTO `dept` VALUES ('Art',300,'Arts Building, Room 300','(555) 555-1234','1888-08-10','Liberal Arts College',1),('Business Administration',400,'Business Building, Office 301','(555) 123-4567','2023-08-25','Business College',NULL),('Computer Engineering',500,'Engineering Building Room 204','(555) 123-4567','1990-01-01','College of Engineering',4),('Computer Science',200,'Engineering Building, Room 203','(555) 123-4567','1990-01-01','College of Engineering',3),('Instrumental Department',600,'Musical Building, Room 204','(555) 123-4567','1990-01-01','Music Academy College',5),('Nursing',100,'Health Building, Suite 33','(666) 321-6789','1890-09-05','Health and Wellness College',2);
 /*!40000 ALTER TABLE `dept` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,7 +134,7 @@ CREATE TABLE `instructor` (
 
 LOCK TABLES `instructor` WRITE;
 /*!40000 ALTER TABLE `instructor` DISABLE KEYS */;
-INSERT INTO `instructor` VALUES (1,1,'Omar Ahmed','(999) 4444 1234','(666) 123-4567','College of Engineering',200,'Computer Science'),(2,2,'Noora Mohammed','(999) 4444 1234','(666) 123-4567','Health and Wellness College',100,'Nursing'),(3,3,'Saad Abdulla','(999) 4444 1234','(666) 123-4567','Liberal Arts College',300,'Art');
+INSERT INTO `instructor` VALUES (1,1,'Omar Ahmed','(999) 4444 1234','(666) 123-4567','College of Engineering',200,'Computer Science'),(2,2,'Noora Mohammed','(999) 4444 1234','(666) 123-4567','Health and Wellness College',100,'Nursing'),(3,3,'Saad Abdulla','(999) 4444 1234','(666) 123-4567','Liberal Arts College',300,'Art'),(4,4,'Mariam Nasser','(999) 4444 1234','(666) 123-4567','College of Engineering',500,'Computer Engineering'),(5,4,'Noor Kareem','(999) 4444 1234','(666) 123-4567','Music Academy College',600,'Instrumental Department');
 /*!40000 ALTER TABLE `instructor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,7 +170,7 @@ CREATE TABLE `section` (
 
 LOCK TABLES `section` WRITE;
 /*!40000 ALTER TABLE `section` DISABLE KEYS */;
-INSERT INTO `section` VALUES (10,101,'Fall',2023,203,101,'Science Hall',155,'Public Health',2),(20,201,'Spring',2023,305,100,'Engineering Hall',255,'OOP',1),(30,301,'Fall',2022,405,99,'Art Hall',355,'Art History',3);
+INSERT INTO `section` VALUES (10,101,'Fall',2023,203,101,'Science Hall',155,'Public Health',2),(20,201,'Spring',2023,305,100,'Engineering Hall',255,'OOP',1),(30,301,'Fall',2022,405,99,'Art Hall',355,'Art History',3),(40,401,'Spring',2022,405,100,'Engineering Hall',119,'Programming Concepts',4),(50,501,'Spring',2023,505,100,'Engineering Hall',255,'OOP',4);
 /*!40000 ALTER TABLE `section` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -232,7 +232,7 @@ CREATE TABLE `student_section` (
 
 LOCK TABLES `student_section` WRITE;
 /*!40000 ALTER TABLE `student_section` DISABLE KEYS */;
-INSERT INTO `student_section` VALUES (10,3,4),(20,4,1),(30,2,5);
+INSERT INTO `student_section` VALUES (10,3,4),(20,4,1),(30,2,5),(40,4,2),(50,3,3);
 /*!40000 ALTER TABLE `student_section` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -245,4 +245,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-22 10:43:01
+-- Dump completed on 2023-09-22 21:37:30
