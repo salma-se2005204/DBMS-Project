@@ -164,11 +164,29 @@ public class CostScreen extends JFrame {
 		subtitle.setBounds(29, 186, 214, 25);
 		panel.add(subtitle);
 		
-		JCheckBox deptNameCHK = new JCheckBox("Department Number");
+		JCheckBox deptNameCHK = new JCheckBox("Department Name");
 		deptNameCHK.setOpaque(false);
 		deptNameCHK.setForeground(Color.WHITE);
 		deptNameCHK.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		deptNameCHK.setBounds(39, 286, 165, 27);
+		deptNameCHK.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(deptNameCHK.isSelected())
+				{
+					deptAttributes.add("D.DName");
+				}
+					
+				if(!deptNameCHK.isSelected())
+				{
+					deptAttributes.remove("D.DName");
+				}
+				
+				updateQuery();
+				
+				queryDisplay.setText(query);
+				
+			}
+		});
 		panel.add(deptNameCHK);
 		
 		JCheckBox chckbxDepartmentCode = new JCheckBox("Department Code");
@@ -176,6 +194,24 @@ public class CostScreen extends JFrame {
 		chckbxDepartmentCode.setForeground(Color.WHITE);
 		chckbxDepartmentCode.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		chckbxDepartmentCode.setBounds(39, 317, 145, 27);
+		chckbxDepartmentCode.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(chckbxDepartmentCode.isSelected())
+				{
+					deptAttributes.add("D.DCode");
+				}
+					
+				if(!chckbxDepartmentCode.isSelected())
+				{
+					deptAttributes.remove("D.DCode");
+				}
+				
+				updateQuery();
+				
+				queryDisplay.setText(query);
+				
+			}
+		});
 		panel.add(chckbxDepartmentCode);
 		
 		JCheckBox deptOfficeCHK = new JCheckBox("Department Office");
@@ -183,6 +219,24 @@ public class CostScreen extends JFrame {
 		deptOfficeCHK.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		deptOfficeCHK.setBounds(39, 348, 149, 27);
 		deptOfficeCHK.setOpaque(false);
+		deptOfficeCHK.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(deptOfficeCHK.isSelected())
+				{
+					deptAttributes.add("D.DOffice");
+				}
+					
+				if(!deptOfficeCHK.isSelected())
+				{
+					deptAttributes.remove("D.DOffice");
+				}
+				
+				updateQuery();
+				
+				queryDisplay.setText(query);
+				
+			}
+		});
 		panel.add(deptOfficeCHK);
 		
 		JCheckBox dPhoneCHK = new JCheckBox("Department Phone");
@@ -190,6 +244,24 @@ public class CostScreen extends JFrame {
 		dPhoneCHK.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		dPhoneCHK.setBounds(39, 379, 165, 27);
 		dPhoneCHK.setOpaque(false);
+		dPhoneCHK.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(dPhoneCHK.isSelected())
+				{
+					deptAttributes.add("D.DPhone");
+				}
+					
+				if(!dPhoneCHK.isSelected())
+				{
+					deptAttributes.remove("D.DPhone");
+				}
+				
+				updateQuery();
+				
+				queryDisplay.setText(query);
+				
+			}
+		});
 		panel.add(dPhoneCHK);
 		
 		JCheckBox collegeCHK = new JCheckBox("College Name");
@@ -197,6 +269,24 @@ public class CostScreen extends JFrame {
 		collegeCHK.setForeground(Color.WHITE);
 		collegeCHK.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		collegeCHK.setBounds(39, 412, 145, 27);
+		collegeCHK.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(collegeCHK.isSelected())
+				{
+					deptAttributes.add("D.CollegeCName");
+				}
+					
+				if(!collegeCHK.isSelected())
+				{
+					deptAttributes.remove("D.CollegeCName");
+				}
+				
+				updateQuery();
+				
+				queryDisplay.setText(query);
+				
+			}
+		});
 		panel.add(collegeCHK);
 		
 		JCheckBox instIDCHK = new JCheckBox("Instructor ID");
@@ -204,6 +294,24 @@ public class CostScreen extends JFrame {
 		instIDCHK.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		instIDCHK.setBounds(39, 442, 149, 27);
 		instIDCHK.setOpaque(false);
+		instIDCHK.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(instIDCHK.isSelected())
+				{
+					deptAttributes.add("D.InstructorId");
+				}
+					
+				if(!instIDCHK.isSelected())
+				{
+					deptAttributes.remove("D.InstructorId");
+				}
+				
+				updateQuery();
+				
+				queryDisplay.setText(query);
+				
+			}
+		});
 		panel.add(instIDCHK);
 		
 		JLabel courseLBL = new JLabel("Course");
@@ -233,6 +341,24 @@ public class CostScreen extends JFrame {
 		codeCHK.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		codeCHK.setEnabled(false);
 		codeCHK.setBounds(461, 123, 165, 27);
+		codeCHK.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(codeCHK.isSelected())
+				{
+					courseAttributes.add("C.CCode");
+				}
+					
+				if(!codeCHK.isSelected())
+				{
+					courseAttributes.remove("C.CCode");
+				}
+				
+				updateQuery();
+				
+				queryDisplay.setText(query);
+				
+			}
+		});
 		panel.add(codeCHK);
 		
 		JCheckBox coNameCHK = new JCheckBox("Course Name");
@@ -241,6 +367,24 @@ public class CostScreen extends JFrame {
 		coNameCHK.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		coNameCHK.setEnabled(false);
 		coNameCHK.setBounds(462, 147, 145, 27);
+		coNameCHK.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(coNameCHK.isSelected())
+				{
+					courseAttributes.add("C.CoName");
+				}
+					
+				if(!coNameCHK.isSelected())
+				{
+					courseAttributes.remove("C.CoName");
+				}
+				
+				updateQuery();
+				
+				queryDisplay.setText(query);
+				
+			}
+		});
 		panel.add(coNameCHK);
 		
 		JCheckBox creditsCHK = new JCheckBox("Credits");
@@ -249,6 +393,24 @@ public class CostScreen extends JFrame {
 		creditsCHK.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		creditsCHK.setEnabled(false);
 		creditsCHK.setBounds(462, 170, 149, 27);
+		creditsCHK.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(creditsCHK.isSelected())
+				{
+					courseAttributes.add("C.Credits");
+				}
+					
+				if(!creditsCHK.isSelected())
+				{
+					courseAttributes.remove("C.Credits");
+				}
+				
+				updateQuery();
+				
+				queryDisplay.setText(query);
+				
+			}
+		});
 		panel.add(creditsCHK);
 		
 		JCheckBox levelCHK = new JCheckBox("Level");
@@ -257,6 +419,24 @@ public class CostScreen extends JFrame {
 		levelCHK.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		levelCHK.setEnabled(false);
 		levelCHK.setBounds(461, 190, 165, 30);
+		levelCHK.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(levelCHK.isSelected())
+				{
+					courseAttributes.add("C.Level");
+				}
+					
+				if(!levelCHK.isSelected())
+				{
+					courseAttributes.remove("C.Level");
+				}
+				
+				updateQuery();
+				
+				queryDisplay.setText(query);
+				
+			}
+		});
 		panel.add(levelCHK);
 		
 		JCheckBox descCHK = new JCheckBox("Course Description");
@@ -265,15 +445,25 @@ public class CostScreen extends JFrame {
 		descCHK.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		descCHK.setEnabled(false);
 		descCHK.setBounds(461, 215, 151, 27);
+		descCHK.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(descCHK.isSelected())
+				{
+					courseAttributes.add("C.CDesc");
+				}
+					
+				if(!descCHK.isSelected())
+				{
+					courseAttributes.remove("C.CDesc");
+				}
+				
+				updateQuery();
+				
+				queryDisplay.setText(query);
+				
+			}
+		});
 		panel.add(descCHK);
-		
-		JCheckBox deptCodeCourseCHK = new JCheckBox("Department Code");
-		deptCodeCourseCHK.setOpaque(false);
-		deptCodeCourseCHK.setForeground(Color.WHITE);
-		deptCodeCourseCHK.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		deptCodeCourseCHK.setEnabled(false);
-		deptCodeCourseCHK.setBounds(461, 268, 151, 27);
-		panel.add(deptCodeCourseCHK);
 		
 		JCheckBox courseDeptNameCHK = new JCheckBox("Department Name");
 		courseDeptNameCHK.setOpaque(false);
@@ -281,6 +471,24 @@ public class CostScreen extends JFrame {
 		courseDeptNameCHK.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		courseDeptNameCHK.setEnabled(false);
 		courseDeptNameCHK.setBounds(462, 240, 149, 27);
+		courseDeptNameCHK.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(courseDeptNameCHK.isSelected())
+				{
+					courseAttributes.add("C.DeptDName");
+				}
+					
+				if(!courseDeptNameCHK.isSelected())
+				{
+					courseAttributes.remove("C.DeptDName");
+				}
+				
+				updateQuery();
+				
+				queryDisplay.setText(query);
+				
+			}
+		});
 		panel.add(courseDeptNameCHK);
 		
 		JLabel lblNewLabel = new JLabel("Table");
@@ -368,11 +576,8 @@ public class CostScreen extends JFrame {
 				
 				deptAttributes.clear();
 				deptAttributes.add("D.*");
-				if(tables[0].equals("")||tables[1].equals(""))
-					query = "SELECT " + deptAttributes.get(0) +" FROM "+tables[0]+tables[1];
-				else
-					query = "SELECT " + deptAttributes.get(0) +" FROM "+tables[0]+" , "+tables[1];
 				
+				updateQuery();
 				queryDisplay.setText(query);
 			}
 		});
@@ -387,11 +592,12 @@ public class CostScreen extends JFrame {
 				instIDCHK.setEnabled(true);
 				
 				deptAttributes.clear();
+				updateQuery();
 				
-				if(tables[0].equals("")||tables[1].equals(""))
-					query = "SELECT ? FROM "+tables[0]+tables[1];
-				else
-					query = "SELECT ? FROM "+tables[0]+" , "+tables[1];
+//				if(tables[0].equals("")||tables[1].equals(""))
+//					query = "SELECT ? FROM "+tables[0]+tables[1];
+//				else
+//					query = "SELECT ? FROM "+tables[0]+" , "+tables[1];
 				
 				queryDisplay.setText(query);
 			}
@@ -400,7 +606,6 @@ public class CostScreen extends JFrame {
 		courseAllBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				courseDeptNameCHK.setEnabled(false);
-				deptCodeCourseCHK.setEnabled(false);
 				descCHK.setEnabled(false);
 				levelCHK.setEnabled(false);
 				creditsCHK.setEnabled(false);
@@ -409,10 +614,7 @@ public class CostScreen extends JFrame {
 				
 				courseAttributes.clear();
 				courseAttributes.add("C.*");
-				if(tables[0].equals("")||tables[1].equals(""))
-					query = "SELECT " + courseAttributes.get(0) +" FROM "+tables[0]+tables[1];
-				else
-					query = "SELECT " + courseAttributes.get(0) +" FROM "+tables[0]+" , "+tables[1];
+				updateQuery();
 				
 				queryDisplay.setText(query);
 			}
@@ -421,7 +623,6 @@ public class CostScreen extends JFrame {
 		courseSpecBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				courseDeptNameCHK.setEnabled(true);
-				deptCodeCourseCHK.setEnabled(true);
 				descCHK.setEnabled(true);
 				levelCHK.setEnabled(true);
 				creditsCHK.setEnabled(true);
@@ -429,11 +630,11 @@ public class CostScreen extends JFrame {
 				codeCHK.setEnabled(true);
 				
 				courseAttributes.clear();
-				
-				if(tables[0].equals("")||tables[1].equals(""))
-					query = "SELECT ? FROM "+tables[0]+tables[1];
-				else
-					query = "SELECT ? FROM "+tables[0]+" , "+tables[1];
+				updateQuery();
+//				if(tables[0].equals("")||tables[1].equals(""))
+//					query = "SELECT ? FROM "+tables[0]+tables[1];
+//				else
+//					query = "SELECT ? FROM "+tables[0]+" , "+tables[1];
 				
 				queryDisplay.setText(query);
 			}
