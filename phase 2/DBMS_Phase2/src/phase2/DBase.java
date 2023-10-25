@@ -34,7 +34,8 @@ public class DBase {
 		}
 	}
 	
-	public String search()
+	//for testing connection
+	public String test()
 	{
 		String info ="";			
 
