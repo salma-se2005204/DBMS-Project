@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -19,8 +20,10 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class CostScreen extends JFrame {
-	static String query = "SELECT * FROM";
+	static String query = "";
 	static String[] tables = new String[]{"",""};
+	static ArrayList<String> deptAttributes = new ArrayList<String>();
+	static ArrayList<String> courseAttributes = new ArrayList<String>();
 	
 	private JLabel titleLabel;
 
@@ -42,6 +45,27 @@ public class CostScreen extends JFrame {
 
 
 	private JTextField queryTXT;
+	
+	public static void updateQuery() {
+		if(tables[0].equals("")||tables[1].equals("")) {
+			if(courseAttributes.isEmpty() && deptAttributes.isEmpty())
+				query = "";
+			else if(courseAttributes.isEmpty() && !deptAttributes.isEmpty())
+				query = "SELECT " + deptAttributes.toString().replace("[","").replace("]", "") +" FROM "+tables[0]+tables[1];
+			else if(!courseAttributes.isEmpty() && deptAttributes.isEmpty())
+				query = "SELECT " + courseAttributes.toString().replace("[","").replace("]", "") +" FROM "+tables[0]+tables[1];
+		}
+		else {
+			if(courseAttributes.isEmpty() && deptAttributes.isEmpty())
+				query = "";
+			else if(courseAttributes.isEmpty() && !deptAttributes.isEmpty())
+				query = "SELECT " +  deptAttributes.toString().replace("[","").replace("]", "") +" FROM "+tables[0]+" , "+tables[1];
+			else if(!courseAttributes.isEmpty() && deptAttributes.isEmpty())
+				query = "SELECT " + courseAttributes.toString().replace("[","").replace("]", "")+" FROM "+tables[0]+" , "+tables[1];
+			else
+				query = "SELECT " +  deptAttributes.toString().replace("[","").replace("]", "") +" , "+ courseAttributes.toString().replace("[","").replace("]", "")+" FROM "+tables[0]+" , "+tables[1];
+		}
+	}
 	
 	/**
 	 * Create the frame.
@@ -273,14 +297,19 @@ public class CostScreen extends JFrame {
 		deptCheck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(deptCheck.isSelected())
+				{
+					deptAttributes.clear();
 					tables[0] = "dept D";
+					deptAttributes.add("D.*");
+				}
+					
 				if(!deptCheck.isSelected())
+				{
+					deptAttributes.clear();
 					tables[0] = "";
+				}
 				
-				if(tables[0].equals("")||tables[1].equals(""))
-					query = "SELECT * FROM "+tables[0]+tables[1];
-				else
-					query = "SELECT * FROM "+tables[0]+" , "+tables[1];
+				updateQuery();
 				
 				queryDisplay.setText(query);
 				
@@ -296,15 +325,20 @@ public class CostScreen extends JFrame {
 		courseCheck.setOpaque(false);
 		courseCheck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(courseCheck.isSelected())
+				if(courseCheck.isSelected()) 
+				{
+					courseAttributes.clear();
 					tables[1] = "Course C";
-				if(!courseCheck.isSelected())
-					tables[1] = "";
+					courseAttributes.add("C.*");
+				}
 				
-				if(tables[0].equals("")||tables[1].equals(""))
-					query = "SELECT * FROM "+tables[0]+tables[1];
-				else
-					query = "SELECT * FROM "+tables[0]+" , "+tables[1];
+				if(!courseCheck.isSelected())
+				{
+					tables[1] = "";
+					courseAttributes.clear();
+				}
+					
+				updateQuery();
 				
 				queryDisplay.setText(query);
 				
@@ -331,6 +365,15 @@ public class CostScreen extends JFrame {
 				dPhoneCHK.setEnabled(false);
 				collegeCHK.setEnabled(false);
 				instIDCHK.setEnabled(false);
+				
+				deptAttributes.clear();
+				deptAttributes.add("D.*");
+				if(tables[0].equals("")||tables[1].equals(""))
+					query = "SELECT " + deptAttributes.get(0) +" FROM "+tables[0]+tables[1];
+				else
+					query = "SELECT " + deptAttributes.get(0) +" FROM "+tables[0]+" , "+tables[1];
+				
+				queryDisplay.setText(query);
 			}
 		});
 		
@@ -342,6 +385,15 @@ public class CostScreen extends JFrame {
 				dPhoneCHK.setEnabled(true);
 				collegeCHK.setEnabled(true);
 				instIDCHK.setEnabled(true);
+				
+				deptAttributes.clear();
+				
+				if(tables[0].equals("")||tables[1].equals(""))
+					query = "SELECT ? FROM "+tables[0]+tables[1];
+				else
+					query = "SELECT ? FROM "+tables[0]+" , "+tables[1];
+				
+				queryDisplay.setText(query);
 			}
 		});
 		
@@ -354,6 +406,15 @@ public class CostScreen extends JFrame {
 				creditsCHK.setEnabled(false);
 				coNameCHK.setEnabled(false);
 				codeCHK.setEnabled(false);
+				
+				courseAttributes.clear();
+				courseAttributes.add("C.*");
+				if(tables[0].equals("")||tables[1].equals(""))
+					query = "SELECT " + courseAttributes.get(0) +" FROM "+tables[0]+tables[1];
+				else
+					query = "SELECT " + courseAttributes.get(0) +" FROM "+tables[0]+" , "+tables[1];
+				
+				queryDisplay.setText(query);
 			}
 		});
 		
@@ -366,6 +427,15 @@ public class CostScreen extends JFrame {
 				creditsCHK.setEnabled(true);
 				coNameCHK.setEnabled(true);
 				codeCHK.setEnabled(true);
+				
+				courseAttributes.clear();
+				
+				if(tables[0].equals("")||tables[1].equals(""))
+					query = "SELECT ? FROM "+tables[0]+tables[1];
+				else
+					query = "SELECT ? FROM "+tables[0]+" , "+tables[1];
+				
+				queryDisplay.setText(query);
 			}
 		});
 		
