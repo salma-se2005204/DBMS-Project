@@ -16,28 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `college`
+-- Table structure for table `table_metadata`
 --
 
-DROP TABLE IF EXISTS `college`;
+DROP TABLE IF EXISTS `table_metadata`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `college` (
-  `CName` varchar(255) NOT NULL,
-  `COffice` varchar(255) DEFAULT NULL,
-  `CPhone` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`CName`)
+CREATE TABLE `table_metadata` (
+  `TableName` varchar(255) DEFAULT NULL,
+  `PrimaryKeyIndex` varchar(255) DEFAULT NULL,
+  `SecondaryKeyIndex` varchar(255) DEFAULT NULL,
+  `ClusteringIndex` varchar(255) DEFAULT NULL,
+  `AvrgRowLength` int DEFAULT NULL,
+  `TableSize` int DEFAULT NULL,
+  `NumberOfRecords` int DEFAULT NULL,
+  `NumberOfBlocks` int DEFAULT NULL,
+  `BlockingFactor` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `college`
+-- Dumping data for table `table_metadata`
 --
 
-LOCK TABLES `college` WRITE;
-/*!40000 ALTER TABLE `college` DISABLE KEYS */;
-INSERT INTO `college` VALUES ('Business College','321 Commerce Plaza Office 210','(666) 123-4567'),('College of Engineering','789 Engineering Avenue  Room 101','(666) 123-4567'),('Health and Wellness College','567 Wellness Center Suite 33','(666) 123-4567'),('Liberal Arts College','123 Main Street Suite 400','(666) 123-4567'),('Music Academy College','Melody Lane Office 300','(666) 123-4567');
-/*!40000 ALTER TABLE `college` ENABLE KEYS */;
+LOCK TABLES `table_metadata` WRITE;
+/*!40000 ALTER TABLE `table_metadata` DISABLE KEYS */;
+INSERT INTO `table_metadata` VALUES ('Dept','DCode','DName','null',20,50,36,14,10),('Course','CCode','DeptDName','null',15,50,60,20,10);
+/*!40000 ALTER TABLE `table_metadata` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-01 12:12:05
+-- Dump completed on 2023-11-01 12:12:06
