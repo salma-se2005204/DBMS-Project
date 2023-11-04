@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.FocusAdapter;
@@ -78,31 +79,49 @@ public class CostScreen extends JFrame {
 			if(courseAttributes.isEmpty() && deptAttributes.isEmpty())
 				query = "";
 			else if(courseAttributes.isEmpty() && !deptAttributes.isEmpty() && conditions.isEmpty())
-				query = "SELECT " + deptAttributes.toString().replace("[","").replace("]", "") +" FROM "+tables[0]+tables[1];
+				query = "SELECT " + deptAttributes.toString().replace("[","").replace("]", "") +"\nFROM "+tables[0]+tables[1];
 			else if(courseAttributes.isEmpty() && !deptAttributes.isEmpty() && !conditions.isEmpty()) {
 				if(conditions.size()==1)
-					query = "SELECT " + deptAttributes.toString().replace("[","").replace("]", "") +" FROM "+tables[0]+tables[1]+" WHERE "+conditions.toString().replace("[","").replace("]", "");
+					query = "SELECT " + deptAttributes.toString().replace("[","").replace("]", "") +"\nFROM "+tables[0]+tables[1]+"\nWHERE "+conditions.toString().replace("[","").replace("]", "");
 				else
-					query = "SELECT " + deptAttributes.toString().replace("[","").replace("]", "") +" FROM "+tables[0]+tables[1]+" WHERE "+conditions.toString().replace("[","").replace("]", "").replace(",", " "+join+" ");
+					query = "SELECT " + deptAttributes.toString().replace("[","").replace("]", "") +"\nFROM "+tables[0]+tables[1]+"\nWHERE "+conditions.toString().replace("[","").replace("]", "").replace(",", " "+join+" ");
 			}
 			else if(!courseAttributes.isEmpty() && deptAttributes.isEmpty() && conditions.isEmpty())
-				query = "SELECT " + courseAttributes.toString().replace("[","").replace("]", "") +" FROM "+tables[0]+tables[1];
+				query = "SELECT " + courseAttributes.toString().replace("[","").replace("]", "") +"\nFROM "+tables[0]+tables[1];
 			else if(!courseAttributes.isEmpty() && deptAttributes.isEmpty() && !conditions.isEmpty()) {
 				if(conditions.size()==1)
-					query = "SELECT " + courseAttributes.toString().replace("[","").replace("]", "") +" FROM "+tables[0]+tables[1]+" WHERE "+conditions.toString().replace("[","").replace("]", "");
+					query = "SELECT " + courseAttributes.toString().replace("[","").replace("]", "") +"\nFROM "+tables[0]+tables[1]+"\nWHERE "+conditions.toString().replace("[","").replace("]", "");
 				else
-					query = "SELECT " + courseAttributes.toString().replace("[","").replace("]", "") +" FROM "+tables[0]+tables[1]+" WHERE "+conditions.toString().replace("[","").replace("]", "").replace(",", " "+join+" ");
+					query = "SELECT " + courseAttributes.toString().replace("[","").replace("]", "") +"\nFROM "+tables[0]+tables[1]+"\nWHERE "+conditions.toString().replace("[","").replace("]", "").replace(",", " "+join+" ");
 			}
 		}
 		else {
 			if(courseAttributes.isEmpty() && deptAttributes.isEmpty())
 				query = "";
-			else if(courseAttributes.isEmpty() && !deptAttributes.isEmpty())
-				query = "SELECT " +  deptAttributes.toString().replace("[","").replace("]", "") +" FROM "+tables[0]+" , "+tables[1];
-			else if(!courseAttributes.isEmpty() && deptAttributes.isEmpty())
-				query = "SELECT " + courseAttributes.toString().replace("[","").replace("]", "")+" FROM "+tables[0]+" , "+tables[1];
-			else
-				query = "SELECT " +  deptAttributes.toString().replace("[","").replace("]", "") +" , "+ courseAttributes.toString().replace("[","").replace("]", "")+" FROM "+tables[0]+" , "+tables[1];
+			else if(courseAttributes.isEmpty() && !deptAttributes.isEmpty() && conditions.isEmpty())
+				query = "SELECT " +  deptAttributes.toString().replace("[","").replace("]", "") +"\nFROM "+tables[0]+" , "+tables[1];
+			else if(courseAttributes.isEmpty() && !deptAttributes.isEmpty() && !conditions.isEmpty())
+			{
+				if(conditions.size()==1)
+					query = "SELECT " +  deptAttributes.toString().replace("[","").replace("]", "") +"\nFROM "+tables[0]+" , "+tables[1]+"\nWHERE "+conditions.toString().replace("[","").replace("]", "");
+				else
+					query = "SELECT " +  deptAttributes.toString().replace("[","").replace("]", "") +"\nFROM "+tables[0]+" , "+tables[1]+"\nWHERE "+conditions.toString().replace("[","").replace("]", "").replace(",", " "+join+" ");
+			}
+			else if(!courseAttributes.isEmpty() && deptAttributes.isEmpty() && conditions.isEmpty()) {
+				if(conditions.size()==1)
+					query = "SELECT " +  courseAttributes.toString().replace("[","").replace("]", "") +"\nFROM "+tables[0]+" , "+tables[1]+"\nWHERE "+conditions.toString().replace("[","").replace("]", "");
+				else
+					query = "SELECT " +  courseAttributes.toString().replace("[","").replace("]", "") +"\nFROM "+tables[0]+" , "+tables[1]+"\nWHERE "+conditions.toString().replace("[","").replace("]", "").replace(",", " "+join+" ");
+			}
+			else {
+				if(conditions.isEmpty()) {
+					query = "SELECT " +  deptAttributes.toString().replace("[","").replace("]", "") +" , "+ courseAttributes.toString().replace("[","").replace("]", "")+"\nFROM "+tables[0]+" , "+tables[1]+"\nWHERE C.DeptDName = D.DName";
+				}
+				else if(conditions.size()==1)
+					query = "SELECT " +  deptAttributes.toString().replace("[","").replace("]", "") +" , "+ courseAttributes.toString().replace("[","").replace("]", "")+"\nFROM "+tables[0]+" , "+tables[1]+"\nWHERE C.DeptDName = D.DName AND "+conditions.toString().replace("[","").replace("]", "");
+				else
+					query = "SELECT " +  deptAttributes.toString().replace("[","").replace("]", "") +" , "+ courseAttributes.toString().replace("[","").replace("]", "")+"\nFROM "+tables[0]+" , "+tables[1]+"\nWHERE C.DeptDName = D.DName AND "+conditions.toString().replace("[","").replace("]", "").replace(",", " "+join+" ");
+			}
 		}
 	}
 	
@@ -155,7 +174,11 @@ public class CostScreen extends JFrame {
 		deptLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		deptLabel.setForeground(Color.WHITE);
 		
-		JLabel queryDisplay = new JLabel(query);
+		JTextArea queryDisplay = new JTextArea("Query will be displayed here");
+		queryDisplay.setEditable(false);
+		queryDisplay.setOpaque(false);
+		queryDisplay.setLineWrap(true);
+		queryDisplay.setWrapStyleWord(true);
 		
 		JCheckBox deptNameCHK = new JCheckBox("Department Name");
 		deptNameCHK.setBounds(10, 73, 165, 27);
@@ -357,7 +380,7 @@ public class CostScreen extends JFrame {
 		
 		JButton homeBTN = new JButton("Back to Home Screen");
 		homeBTN.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		homeBTN.setBounds(421, 576, 259, 27);
+		homeBTN.setBounds(267, 576, 259, 27);
 		homeBTN.setBackground(new Color(0xfedd76));
 		homeBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -371,7 +394,7 @@ public class CostScreen extends JFrame {
 		
 		queryDisplay.setForeground(Color.WHITE);
 		queryDisplay.setFont(new Font("Tahoma", Font.BOLD, 15));
-		queryDisplay.setBounds(23, 504, 750, 27);
+		queryDisplay.setBounds(492, 133, 283, 294);
 		panel.add(queryDisplay);
 		
 		titleLabel = new JLabel("Estimate Cost of Query");
@@ -641,18 +664,18 @@ public class CostScreen extends JFrame {
 		
 		JButton generateBTN = new JButton("Generate Cost Estimation");
 		generateBTN.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		generateBTN.setBounds(153, 578, 258, 23);
+		generateBTN.setBounds(268, 542, 258, 23);
 		generateBTN.setBackground(new Color(0xfedd76));
-		generateBTN.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println(query);
-			}
-		});
+//		generateBTN.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				System.out.println(query);
+//			}
+//		});
 		panel.add(generateBTN);
 		
 		
 		cond2_State = new JTextField();
-		cond2_State.setBounds(269, 470, 96, 20);
+		cond2_State.setBounds(678, 438, 96, 20);
 		panel.add(cond2_State);
 		cond2_State.setColumns(10);
 		
@@ -667,7 +690,7 @@ public class CostScreen extends JFrame {
 		panel.add(cond1_Combo);
 		
 		JComboBox cond2_Combo = new JComboBox();
-		cond2_Combo.setBounds(35, 469, 147, 22);
+		cond2_Combo.setBounds(444, 437, 147, 22);
 		cond2_Combo.addItem("None");
 		panel.add(cond2_Combo);
 		
@@ -681,7 +704,7 @@ public class CostScreen extends JFrame {
 		cond1Eq.addItem("<=");
 		
 		JComboBox cond2Eq = new JComboBox();
-		cond2Eq.setBounds(188, 469, 71, 22);
+		cond2Eq.setBounds(597, 437, 71, 22);
 		panel.add(cond2Eq);
 		cond2Eq.addItem("=");
 		cond2Eq.addItem(">");
@@ -702,7 +725,7 @@ public class CostScreen extends JFrame {
 				queryDisplay.setText(query);
 			}
 		});
-		conn_Box.setBounds(375, 453, 59, 22);
+		conn_Box.setBounds(375, 437, 59, 22);
 		panel.add(conn_Box);
 		conn_Box.addItem("AND");
 		conn_Box.addItem("OR");
@@ -712,7 +735,7 @@ public class CostScreen extends JFrame {
 		cost_TXT.setForeground(Color.WHITE);
 		cost_TXT.setHorizontalAlignment(SwingConstants.CENTER);
 		cost_TXT.setFont(new Font("Tahoma", Font.BOLD, 15));
-		cost_TXT.setBounds(23, 542, 750, 22);
+		cost_TXT.setBounds(38, 509, 750, 22);
 		panel.add(cost_TXT);
 		cost_TXT.setBackground(new Color(0xfedd76));
 		
