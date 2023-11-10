@@ -34,17 +34,21 @@ public class CostScreen extends JFrame {
 	
 	static String [] dept = new String[] {"Department Name","Department Code","Department Office","Department Phone","College Name","Instructor ID"};
 	static String [] deptValue = new String[] {"D.DName","D.DCode","D.DOffice","D.DPhone","D.CollegeCName","D.InstructorId"};
+	static String [] deptType = new String[] {"String","int","String","String","String","int"};
 	static String [] courseAt = new String[] {"Course Code","Course Name","Credits","Level","Course Description","Department Name"};
 	static String [] courseValue = new String[] {"C.CCode","C.CoName","C.Credits","C.Level","C.CDesc","C.DeptDName"};
+	static String [] courseType = new String[] {"int","String","int","int","String","String"};
 	
 	//for combo box
 	public class ComboItem {
 	    private String label;
 	    private String value;
+	    private String type;
 
-	    public ComboItem(String label, String value) {
+	    public ComboItem(String label, String value, String type) {
 	        this.label = label;
 	        this.value = value;
+	        this.type = type;
 	    }
 
 	    @Override
@@ -54,6 +58,10 @@ public class CostScreen extends JFrame {
 
 	    public String getValue() {
 	        return value;
+	    }
+	    
+	    public String getType() {
+	        return type;
 	    }
 	}
 
@@ -380,7 +388,7 @@ public class CostScreen extends JFrame {
 		
 		JButton homeBTN = new JButton("Back to Home Screen");
 		homeBTN.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		homeBTN.setBounds(267, 576, 259, 27);
+		homeBTN.setBounds(269, 540, 259, 27);
 		homeBTN.setBackground(new Color(0xfedd76));
 		homeBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -394,8 +402,18 @@ public class CostScreen extends JFrame {
 		
 		queryDisplay.setForeground(Color.WHITE);
 		queryDisplay.setFont(new Font("Tahoma", Font.BOLD, 15));
-		queryDisplay.setBounds(492, 133, 283, 294);
+		queryDisplay.setBounds(491, 70, 283, 153);
 		panel.add(queryDisplay);
+		
+		JTextArea costDisplay = new JTextArea("Cost: to be Generated");
+		costDisplay.setWrapStyleWord(true);
+		costDisplay.setOpaque(false);
+		costDisplay.setLineWrap(true);
+		costDisplay.setForeground(Color.WHITE);
+		costDisplay.setFont(new Font("Tahoma", Font.BOLD, 15));
+		costDisplay.setEditable(false);
+		costDisplay.setBounds(491, 259, 283, 153);
+		panel.add(costDisplay);
 		
 		titleLabel = new JLabel("Estimate Cost of Query");
 		titleLabel.setForeground(Color.WHITE);
@@ -663,40 +681,45 @@ public class CostScreen extends JFrame {
 		ButtonGroup option = new ButtonGroup();
 		
 		JButton generateBTN = new JButton("Generate Cost Estimation");
+		generateBTN.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		generateBTN.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		generateBTN.setBounds(268, 542, 258, 23);
+		generateBTN.setBounds(270, 506, 258, 23);
 		generateBTN.setBackground(new Color(0xfedd76));
-//		generateBTN.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				System.out.println(query);
-//			}
-//		});
 		panel.add(generateBTN);
 		
+		JPanel condition = new JPanel();
+		condition.setBounds(35, 437, 739, 23);
+		panel.add(condition);
+		condition.setLayout(null);
+		condition.setVisible(false);
+		condition.setOpaque(false);
 		
 		cond2_State = new JTextField();
-		cond2_State.setBounds(678, 438, 96, 20);
-		panel.add(cond2_State);
+		cond2_State.setBounds(643, 1, 96, 20);
+		condition.add(cond2_State);
 		cond2_State.setColumns(10);
 		
 		cond1_State = new JTextField(" ");
-		cond1_State.setBounds(269, 439, 96, 20);
-		panel.add(cond1_State);
+		cond1_State.setBounds(234, 2, 96, 20);
+		condition.add(cond1_State);
 		cond1_State.setColumns(10);
 		
 		JComboBox cond1_Combo = new JComboBox();
-		cond1_Combo.setBounds(35, 438, 147, 22);
+		cond1_Combo.setBounds(0, 1, 147, 22);
+		condition.add(cond1_Combo);
 		cond1_Combo.addItem("None");
-		panel.add(cond1_Combo);
 		
 		JComboBox cond2_Combo = new JComboBox();
-		cond2_Combo.setBounds(444, 437, 147, 22);
+		cond2_Combo.setBounds(409, 0, 147, 22);
+		condition.add(cond2_Combo);
 		cond2_Combo.addItem("None");
-		panel.add(cond2_Combo);
 		
 		JComboBox cond1Eq = new JComboBox();
-		cond1Eq.setBounds(188, 438, 71, 22);
-		panel.add(cond1Eq);
+		cond1Eq.setBounds(153, 1, 71, 22);
+		condition.add(cond1Eq);
 		cond1Eq.addItem("=");
 		cond1Eq.addItem(">");
 		cond1Eq.addItem("<");
@@ -704,18 +727,17 @@ public class CostScreen extends JFrame {
 		cond1Eq.addItem("<=");
 		
 		JComboBox cond2Eq = new JComboBox();
-		cond2Eq.setBounds(597, 437, 71, 22);
-		panel.add(cond2Eq);
+		cond2Eq.setBounds(562, 0, 71, 22);
+		condition.add(cond2Eq);
 		cond2Eq.addItem("=");
 		cond2Eq.addItem(">");
 		cond2Eq.addItem("<");
 		cond2Eq.addItem(">=");
 		cond2Eq.addItem("<=");
 		
-		cond1Eq.setVisible(false);
-		cond2Eq.setVisible(false);
-		
 		JComboBox conn_Box = new JComboBox();
+		conn_Box.setBounds(340, 0, 59, 22);
+		condition.add(conn_Box);
 		conn_Box.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				join = conn_Box.getSelectedItem().toString();
@@ -725,57 +747,50 @@ public class CostScreen extends JFrame {
 				queryDisplay.setText(query);
 			}
 		});
-		conn_Box.setBounds(375, 437, 59, 22);
-		panel.add(conn_Box);
 		conn_Box.addItem("AND");
 		conn_Box.addItem("OR");
+		
+		JLabel info_LBL = new JLabel("Condition(s) for this scenario is unavailable for Now >_<");
+		info_LBL.setHorizontalAlignment(SwingConstants.CENTER);
+		info_LBL.setBounds(35, 438, 739, 32);
+		panel.add(info_LBL);
+		info_LBL.setForeground(Color.WHITE);
+		info_LBL.setFont(new Font("Tahoma", Font.BOLD, 17));
 		conn_Box.setVisible(false);
+		cond2Eq.setVisible(false);
 		
-		JLabel cost_TXT = new JLabel("Cost = To Be Generated");
-		cost_TXT.setForeground(Color.WHITE);
-		cost_TXT.setHorizontalAlignment(SwingConstants.CENTER);
-		cost_TXT.setFont(new Font("Tahoma", Font.BOLD, 15));
-		cost_TXT.setBounds(38, 509, 750, 22);
-		panel.add(cost_TXT);
-		cost_TXT.setBackground(new Color(0xfedd76));
-		
-		JLabel background = new JLabel("");
-		background.setIcon(new ImageIcon("images/backgroundResized.jpg"));
-		background.setBounds(0, 0, 829, 631);
-		panel.add(background);
-		
-		cond1_Combo.addActionListener(new ActionListener() {
+		cond2Eq.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(!cond1_Combo.getSelectedItem().toString().equals("None")) {
-					cond1Eq.setVisible(true);
-					cond1_State.setVisible(true);
+				if(conditions.size()==2) {
+					conditions.remove(1);
 					
-					if(!conditions.isEmpty()) {
-						conditions.remove(0);
-						
-						String cond = ((ComboItem) cond1_Combo.getSelectedItem()).getValue();
-						String eq = cond1Eq.getSelectedItem().toString();
-						String value = cond1_State.getText();
-						conditions.add(0,cond+eq+value);
-						
-						updateQuery();
-						
-						queryDisplay.setText(query);
-					}
+					String cond = ((ComboItem) cond2_Combo.getSelectedItem()).getValue();
+					String eq = cond2Eq.getSelectedItem().toString();
+					String value = cond2_State.getText();
+					conditions.add(1,cond+" "+eq+" "+value); 
+					
+					updateQuery();
+					
+					queryDisplay.setText(query);
 				}
+			}
+		});
+		
+		cond1Eq.setVisible(false);
+		
+		cond1Eq.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!conditions.isEmpty()) {
+					conditions.remove(0);
 					
-				else
-				{
-					cond1Eq.setVisible(false);
-					cond1_State.setVisible(false);
+					String cond = ((ComboItem) cond1_Combo.getSelectedItem()).getValue();
+					String eq = cond1Eq.getSelectedItem().toString();
+					String value = cond1_State.getText();
+					conditions.add(1,cond+" "+eq+" "+value); 
 					
-					if(!conditions.isEmpty()) {
-						conditions.remove(0);
-						
-						updateQuery();
-						
-						queryDisplay.setText(query);
-					}
+					updateQuery();
+					
+					queryDisplay.setText(query);
 				}
 			}
 		});
@@ -817,8 +832,83 @@ public class CostScreen extends JFrame {
 				}
 			}
 		});
-		cond2_State.setVisible(false);
+		
+		cond1_Combo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!cond1_Combo.getSelectedItem().toString().equals("None")) {
+					cond1Eq.setVisible(true);
+					cond1_State.setVisible(true);
+					
+					if(!conditions.isEmpty()) {
+						conditions.remove(0);
+						
+						String cond = ((ComboItem) cond1_Combo.getSelectedItem()).getValue();
+						String eq = cond1Eq.getSelectedItem().toString();
+						String value = cond1_State.getText();
+						conditions.add(0,cond+eq+value);
+						
+						updateQuery();
+						
+						queryDisplay.setText(query);
+					}
+				}
+					
+				else
+				{
+					cond1Eq.setVisible(false);
+					cond1_State.setVisible(false);
+					
+					if(!conditions.isEmpty()) {
+						conditions.remove(0);
+						
+						updateQuery();
+						
+						queryDisplay.setText(query);
+					}
+				}
+			}
+		});
 		cond1_State.setVisible(false);
+		
+		cond1_State.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(!conditions.isEmpty())
+					conditions.remove(0);
+				
+				String cond = ((ComboItem) cond1_Combo.getSelectedItem()).getValue();
+				String eq = cond1Eq.getSelectedItem().toString();
+				String value = cond1_State.getText();
+				conditions.add(1,cond+" "+eq+" "+value); 
+				
+				updateQuery();
+				
+				queryDisplay.setText(query);
+			}
+		});
+		cond2_State.setVisible(false);
+		
+		cond2_State.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(conditions.size()==2)
+					conditions.remove(1);
+				
+				String cond = ((ComboItem) cond2_Combo.getSelectedItem()).getValue();
+				String eq = cond2Eq.getSelectedItem().toString();
+				String value = cond2_State.getText();
+				conditions.add(1,cond+" "+eq+" "+value); 
+				
+				updateQuery();
+				
+				queryDisplay.setText(query);
+			}
+		});
+		
+		JLabel background = new JLabel("");
+		background.setIcon(new ImageIcon("images/backgroundResized.jpg"));
+		background.setBounds(0, 0, 829, 631);
+		panel.add(background);
 		
 		deptCheck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -829,8 +919,15 @@ public class CostScreen extends JFrame {
 					tables[0] = "dept D";
 					deptAttributes.add("D.*");
 					for(int i=0;i<dept.length;++i) {
-						cond1_Combo.addItem(new ComboItem(dept[i],deptValue[i]));
-						cond2_Combo.addItem(new ComboItem(dept[i],deptValue[i]));
+						cond1_Combo.addItem(new ComboItem(dept[i],deptValue[i],deptType[i]));
+						cond2_Combo.addItem(new ComboItem(dept[i],deptValue[i],deptType[i]));
+					}
+					if(!tables[0].equals("") && !tables[1].equals("")) {
+						info_LBL.setVisible(true);
+						condition.setVisible(false);
+					}else {
+						info_LBL.setVisible(false);
+						condition.setVisible(true);
 					}
 				}
 					
@@ -839,8 +936,15 @@ public class CostScreen extends JFrame {
 					deptAttributes.clear();
 					tables[0] = "";
 					for(int i=0;i<dept.length;++i) {
-						cond1_Combo.removeItem(new ComboItem(dept[i],deptValue[i]));
-						cond2_Combo.removeItem(new ComboItem(dept[i],deptValue[i]));
+						cond1_Combo.removeItem(new ComboItem(dept[i],deptValue[i],deptType[i]));
+						cond2_Combo.removeItem(new ComboItem(dept[i],deptValue[i],deptType[i]));
+					}
+					if(!tables[0].equals("") && !tables[1].equals("")) {
+						info_LBL.setVisible(true);
+						condition.setVisible(false);
+					}else {
+						info_LBL.setVisible(false);
+						condition.setVisible(true);
 					}
 				}
 				
@@ -860,8 +964,15 @@ public class CostScreen extends JFrame {
 					tables[1] = "Course C";
 					courseAttributes.add("C.*");
 					for(int i=0;i<courseAt.length;++i) {
-						cond1_Combo.addItem(new ComboItem(courseAt[i],courseValue[i]));
-						cond2_Combo.addItem(new ComboItem(courseAt[i],courseValue[i]));
+						cond1_Combo.addItem(new ComboItem(courseAt[i],courseValue[i],courseType[i]));
+						cond2_Combo.addItem(new ComboItem(courseAt[i],courseValue[i],courseType[i]));
+					}
+					if(!tables[0].equals("") && !tables[1].equals("")) {
+						info_LBL.setVisible(true);
+						condition.setVisible(false);
+					}else {
+						info_LBL.setVisible(false);
+						condition.setVisible(true);
 					}
 				}
 				
@@ -871,8 +982,15 @@ public class CostScreen extends JFrame {
 					tables[1] = "";
 					courseAttributes.clear();
 					for(int i=0;i<courseAt.length;++i) {
-						cond1_Combo.removeItem(new ComboItem(courseAt[i],courseValue[i]));
-						cond2_Combo.removeItem(new ComboItem(courseAt[i],courseValue[i]));
+						cond1_Combo.removeItem(new ComboItem(courseAt[i],courseValue[i],courseType[i]));
+						cond2_Combo.removeItem(new ComboItem(courseAt[i],courseValue[i],courseType[i]));
+					}
+					if(!tables[0].equals("") && !tables[1].equals("")) {
+						info_LBL.setVisible(true);
+						condition.setVisible(false);
+					}else {
+						info_LBL.setVisible(false);
+						condition.setVisible(true);
 					}
 				}
 					
@@ -883,71 +1001,22 @@ public class CostScreen extends JFrame {
 			}
 		});
 		
-		cond1_State.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				if(!conditions.isEmpty())
-					conditions.remove(0);
-				
-				String cond = ((ComboItem) cond1_Combo.getSelectedItem()).getValue();
-				String eq = cond1Eq.getSelectedItem().toString();
-				String value = cond1_State.getText();
-				conditions.add(0,cond+eq+value);
-				
-				updateQuery();
-				
-				queryDisplay.setText(query);
-			}
-		});
-		
-		cond2_State.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				if(conditions.size()==2)
-					conditions.remove(1);
-				
-				String cond = ((ComboItem) cond2_Combo.getSelectedItem()).getValue();
-				String eq = cond2Eq.getSelectedItem().toString();
-				String value = cond2_State.getText();
-				conditions.add(1,cond+eq+value);
-				
-				updateQuery();
-				
-				queryDisplay.setText(query);
-			}
-		});
-		
-		cond1Eq.addActionListener(new ActionListener() {
+		generateBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(!conditions.isEmpty()) {
-					conditions.remove(0);
-					
-					String cond = ((ComboItem) cond1_Combo.getSelectedItem()).getValue();
-					String eq = cond1Eq.getSelectedItem().toString();
-					String value = cond1_State.getText();
-					conditions.add(0,cond+eq+value);
-					
-					updateQuery();
-					
-					queryDisplay.setText(query);
-				}
-			}
-		});
-		
-		cond2Eq.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+				String type1="";
+				String type2="";
 				if(conditions.size()==2) {
-					conditions.remove(1);
-					
-					String cond = ((ComboItem) cond2_Combo.getSelectedItem()).getValue();
-					String eq = cond2Eq.getSelectedItem().toString();
-					String value = cond2_State.getText();
-					conditions.add(1,cond+eq+value);
-					
-					updateQuery();
-					
-					queryDisplay.setText(query);
+					 type1 =((ComboItem) cond1_Combo.getSelectedItem()).getType();
+					 type2 =((ComboItem) cond2_Combo.getSelectedItem()).getType();
+				}else if(conditions.size()==1){
+					 type1 =((ComboItem) cond1_Combo.getSelectedItem()).getType();
 				}
+				
+		
+				CostCalculator cost= new CostCalculator(query, tables, deptAttributes,
+						courseAttributes, conditions,type1,type2);
+				
+				costDisplay.setText(cost.calulcateCost());
 			}
 		});
 	}
