@@ -410,9 +410,9 @@ public class CostScreen extends JFrame {
 		costDisplay.setOpaque(false);
 		costDisplay.setLineWrap(true);
 		costDisplay.setForeground(Color.WHITE);
-		costDisplay.setFont(new Font("Tahoma", Font.BOLD, 15));
+		costDisplay.setFont(new Font("Tahoma", Font.BOLD, 13));
 		costDisplay.setEditable(false);
-		costDisplay.setBounds(491, 259, 283, 153);
+		costDisplay.setBounds(491, 234, 283, 178);
 		panel.add(costDisplay);
 		
 		titleLabel = new JLabel("Estimate Cost of Query");
@@ -922,7 +922,10 @@ public class CostScreen extends JFrame {
 						cond1_Combo.addItem(new ComboItem(dept[i],deptValue[i],deptType[i]));
 						cond2_Combo.addItem(new ComboItem(dept[i],deptValue[i],deptType[i]));
 					}
-					if(!tables[0].equals("") && !tables[1].equals("")) {
+					if(deptCheck.isSelected() && courseCheck.isSelected()) {
+						info_LBL.setVisible(true);
+						condition.setVisible(false);
+					}else if(!deptCheck.isSelected() && !courseCheck.isSelected()) {
 						info_LBL.setVisible(true);
 						condition.setVisible(false);
 					}else {
@@ -939,7 +942,10 @@ public class CostScreen extends JFrame {
 						cond1_Combo.removeItem(new ComboItem(dept[i],deptValue[i],deptType[i]));
 						cond2_Combo.removeItem(new ComboItem(dept[i],deptValue[i],deptType[i]));
 					}
-					if(!tables[0].equals("") && !tables[1].equals("")) {
+					if(deptCheck.isSelected() && courseCheck.isSelected()) {
+						info_LBL.setVisible(true);
+						condition.setVisible(false);
+					}else if(!deptCheck.isSelected() && !courseCheck.isSelected()) {
 						info_LBL.setVisible(true);
 						condition.setVisible(false);
 					}else {
@@ -967,7 +973,10 @@ public class CostScreen extends JFrame {
 						cond1_Combo.addItem(new ComboItem(courseAt[i],courseValue[i],courseType[i]));
 						cond2_Combo.addItem(new ComboItem(courseAt[i],courseValue[i],courseType[i]));
 					}
-					if(!tables[0].equals("") && !tables[1].equals("")) {
+					if(deptCheck.isSelected() && courseCheck.isSelected()) {
+						info_LBL.setVisible(true);
+						condition.setVisible(false);
+					}else if(!deptCheck.isSelected() && !courseCheck.isSelected()) {
 						info_LBL.setVisible(true);
 						condition.setVisible(false);
 					}else {
@@ -985,7 +994,10 @@ public class CostScreen extends JFrame {
 						cond1_Combo.removeItem(new ComboItem(courseAt[i],courseValue[i],courseType[i]));
 						cond2_Combo.removeItem(new ComboItem(courseAt[i],courseValue[i],courseType[i]));
 					}
-					if(!tables[0].equals("") && !tables[1].equals("")) {
+					if(deptCheck.isSelected() && courseCheck.isSelected()) {
+						info_LBL.setVisible(true);
+						condition.setVisible(false);
+					}else if(!deptCheck.isSelected() && !courseCheck.isSelected()) {
 						info_LBL.setVisible(true);
 						condition.setVisible(false);
 					}else {
@@ -1003,20 +1015,21 @@ public class CostScreen extends JFrame {
 		
 		generateBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				costDisplay.setText("");
 				if(!query.isBlank()) {
 					String type1="";
 					String type2="";
+					String Or_And="no";
 					if(conditions.size()==2) {
 						 type1 =((ComboItem) cond1_Combo.getSelectedItem()).getType();
 						 type2 =((ComboItem) cond2_Combo.getSelectedItem()).getType();
+						 Or_And = join; 
 					}else if(conditions.size()==1){
 						 type1 =((ComboItem) cond1_Combo.getSelectedItem()).getType();
 					}
 					
 			
 					CostCalculator cost= new CostCalculator(query, tables, deptAttributes,
-							courseAttributes, conditions,type1,type2);
+							courseAttributes, conditions,type1,type2,Or_And);
 					
 					costDisplay.setText(cost.calulcateCost());
 				}else {

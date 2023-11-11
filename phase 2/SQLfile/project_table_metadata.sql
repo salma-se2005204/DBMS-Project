@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Host: localhost    Database: project
+-- Host: 127.0.0.1    Database: project
 -- ------------------------------------------------------
 -- Server version	8.0.34
 
@@ -41,7 +41,7 @@ CREATE TABLE `table_metadata` (
 
 LOCK TABLES `table_metadata` WRITE;
 /*!40000 ALTER TABLE `table_metadata` DISABLE KEYS */;
-INSERT INTO `table_metadata` VALUES ('Dept','DCode','DName','null',20,50,36,14,10),('Course','CCode','DeptDName','null',15,50,60,20,10);
+INSERT INTO `table_metadata` VALUES ('Dept','DCode','DName','null',2730,98280,36,24,2),('Course','CCode','DeptDName','null',3276,196560,60,48,2);
 /*!40000 ALTER TABLE `table_metadata` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-11  9:12:55
+-- Dump completed on 2023-11-11 22:08:54

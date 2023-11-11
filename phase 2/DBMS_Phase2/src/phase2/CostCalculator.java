@@ -23,9 +23,9 @@ public class CostCalculator {
 	public String isSorted = "";
 	public String type1="";
 	public String type2="";
-
+	public String Or_And="";
 	public CostCalculator(String query, String[] tables, ArrayList<String> deptAttributes,
-			ArrayList<String> courseAttributes, ArrayList<String> conditions,String type1,String type2) {
+			ArrayList<String> courseAttributes, ArrayList<String> conditions,String type1,String type2,String Or_And) {
 		this.query = query;
 		this.tables = tables;
 		this.deptAttributes = deptAttributes;
@@ -33,12 +33,13 @@ public class CostCalculator {
 		this.conditions = conditions;
 		this.type1=type1;
 		this.type2=type2;
+		this.Or_And=Or_And;
 	}
 
 	public String calulcateCost() {
 		startConnection();
-		costResult ="";
-		costResult = costResult + "\nCost to " + query;
+		costResult="";
+		costResult = costResult /*+ "\nCost to " + query*/;
 		Double cost = 0.0;
 		if (tables[0].contains("Course C")) {
 			tables[0] = "Course";
@@ -85,7 +86,21 @@ public class CostCalculator {
 				cost = J3;
 			if (cost > J4 && J4 != -1.0)
 				cost = J4;
-		} else if (!query.contains("C.DeptDName = D.DName")) {
+		}else if(conditions.size()==0 && !query.contains("C.DeptDName = D.DName")){
+			if(tables[1].equals("")) {
+				 cost=(double) this.findBlocks(tables[0]);
+			  costResult+="\nLinear search "+cost;
+			 
+			}
+			else 
+			{
+				 cost=(double) this.findBlocks(tables[1]);
+				 costResult+="\nLinear search "+cost;
+			}
+			
+			
+		}
+		else if (!query.contains("C.DeptDName = D.DName")) {
 			// cost to calculate select
 			String[] parts = conditions.get(0).split(" "); // condition received in String format example: DName =
 															// 'Mathematic'
@@ -123,8 +138,10 @@ public class CostCalculator {
 						(parts[1]),type1);
 				double secondCost = selectCost(query, tables[0], parts2[0],parts2[2],
 						checkIndexType(parts2[0]), parts2[1],type2);
-				if (cost > secondCost)
+				if (cost > secondCost && Or_And.contains("AND"))
 					cost = secondCost;
+				else if(Or_And.contains("OR")) 
+					cost= cost+secondCost;
 			}
 			if (conditions.size() == 2 && tables[0].contains("") && tables[1].contains("Course")) { // two conditions
 																									// for select on
@@ -133,19 +150,32 @@ public class CostCalculator {
 						(parts[1]),type1);
 				double secondCost = selectCost(query, tables[1], parts2[0], parts2[2],
 						checkIndexType(parts2[0]), parts2[1],type2);
-				if (cost > secondCost)
+				if (cost > secondCost && Or_And.contains("AND"))
 					cost = secondCost;
+				else if(Or_And.equalsIgnoreCase("OR")) {
+					cost= cost+secondCost;
+				}
+				
 			}
 		} else {
 
 		}
-		costResult="Minimum Cost is "+cost+"\n"+costResult;
+		costResult="Minimum Cost is "+cost+costResult;
 	
-//		System.out.println(costResult);
 		return costResult;
 
 	}
-
+	public  void close()
+	{
+		try 
+		{
+			conn.close();
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+	}
 	public double selectCost(String query, String table, String attribute, String value, String keyType, String operator,String conditionType) {
 		double cost = 0.0;
 		double s1Cost = -1.0;
@@ -200,7 +230,7 @@ public class CostCalculator {
 			if (this.checkIfSorted(attribute) == "yes")
 				s2Cost = S2BinarySearch(table, attribute, operator, value,conditionType);
 		}
-		costResult = costResult + "\nCost to select attritbute " + attribute + "\nS1Linear search:" + s1Cost;
+		costResult = costResult + "\n\nCost to select attritbute " + attribute + "\nS1Linear search:" + s1Cost;
 		if (s2Cost != -1)
 			costResult = costResult.concat("\nS2Binary Search :" + s2Cost);
 		if (s3aCost != -1)
