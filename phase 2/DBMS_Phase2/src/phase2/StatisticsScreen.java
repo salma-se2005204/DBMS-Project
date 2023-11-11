@@ -67,8 +67,7 @@ public class StatisticsScreen extends JFrame {
 	}
 	
 	String[]tableStats = new String[4];
-//	String[] attributeColumns = {"Name", "NDV", "Min Value","Max Value"};
-	String[] attributeColumns = {"Attribute Name", "Number of Distinct Values"};
+	String[] attributeColumns = {"Name", "NDV", "Max Value","Min Value"};
 	String[] indexColumns = {"Attribute Name","Uniqueness","Height of Tree","Distinct Values"};
 	ArrayList<ArrayList<String>> attributeStats = new ArrayList<>();	
 	ArrayList<ArrayList<String>> indexStats = new ArrayList<>();

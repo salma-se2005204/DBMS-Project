@@ -786,7 +786,7 @@ public class CostScreen extends JFrame {
 					String cond = ((ComboItem) cond1_Combo.getSelectedItem()).getValue();
 					String eq = cond1Eq.getSelectedItem().toString();
 					String value = cond1_State.getText();
-					conditions.add(1,cond+" "+eq+" "+value); 
+					conditions.add(0,cond+" "+eq+" "+value); 
 					
 					updateQuery();
 					
@@ -879,7 +879,7 @@ public class CostScreen extends JFrame {
 				String cond = ((ComboItem) cond1_Combo.getSelectedItem()).getValue();
 				String eq = cond1Eq.getSelectedItem().toString();
 				String value = cond1_State.getText();
-				conditions.add(1,cond+" "+eq+" "+value); 
+				conditions.add(0,cond+" "+eq+" "+value); 
 				
 				updateQuery();
 				
@@ -1003,20 +1003,25 @@ public class CostScreen extends JFrame {
 		
 		generateBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String type1="";
-				String type2="";
-				if(conditions.size()==2) {
-					 type1 =((ComboItem) cond1_Combo.getSelectedItem()).getType();
-					 type2 =((ComboItem) cond2_Combo.getSelectedItem()).getType();
-				}else if(conditions.size()==1){
-					 type1 =((ComboItem) cond1_Combo.getSelectedItem()).getType();
+				costDisplay.setText("");
+				if(!query.isBlank()) {
+					String type1="";
+					String type2="";
+					if(conditions.size()==2) {
+						 type1 =((ComboItem) cond1_Combo.getSelectedItem()).getType();
+						 type2 =((ComboItem) cond2_Combo.getSelectedItem()).getType();
+					}else if(conditions.size()==1){
+						 type1 =((ComboItem) cond1_Combo.getSelectedItem()).getType();
+					}
+					
+			
+					CostCalculator cost= new CostCalculator(query, tables, deptAttributes,
+							courseAttributes, conditions,type1,type2);
+					
+					costDisplay.setText(cost.calulcateCost());
+				}else {
+					queryDisplay.setText("Please select at least one table");
 				}
-				
-		
-				CostCalculator cost= new CostCalculator(query, tables, deptAttributes,
-						courseAttributes, conditions,type1,type2);
-				
-				costDisplay.setText(cost.calulcateCost());
 			}
 		});
 	}

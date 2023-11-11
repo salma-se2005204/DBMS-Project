@@ -37,6 +37,7 @@ public class CostCalculator {
 
 	public String calulcateCost() {
 		startConnection();
+		costResult ="";
 		costResult = costResult + "\nCost to " + query;
 		Double cost = 0.0;
 		if (tables[0].contains("Course C")) {

@@ -89,7 +89,7 @@ public class DBase {
 		try 
 		{
 			Statement stmt2 = conn.createStatement();
-			ResultSet rs = stmt2.executeQuery("SELECT AttributeName, DistinctValues FROM attribute_metadata WHERE TableName = \""+tableName+"\";");
+			ResultSet rs = stmt2.executeQuery("SELECT AttributeName, DistinctValues, maxiValue, minValue FROM attribute_metadata WHERE TableName = \""+tableName+"\";");
 
 			while(rs.next())
 			{
