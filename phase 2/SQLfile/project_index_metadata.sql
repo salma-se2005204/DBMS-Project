@@ -29,7 +29,8 @@ CREATE TABLE `index_metadata` (
   `StructureOfIndex` varchar(255) DEFAULT NULL,
   `IsUnique` varchar(255) DEFAULT NULL,
   `HeightOfTree` int DEFAULT NULL,
-  `DistinctValues` int DEFAULT NULL
+  `DistinctValues` int DEFAULT NULL,
+  `firstLevelIndex` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -39,7 +40,7 @@ CREATE TABLE `index_metadata` (
 
 LOCK TABLES `index_metadata` WRITE;
 /*!40000 ALTER TABLE `index_metadata` DISABLE KEYS */;
-INSERT INTO `index_metadata` VALUES ('DCode','dept','PI','B+ tree','unique',40,36),('DName','dept','SI','B+ tree','unique',40,36),('CCode','Course','PI','B+ tee','unique',40,60),('CoName','Course','SI','B+ tree','unique',40,60);
+INSERT INTO `index_metadata` VALUES ('DCode','Dept','PI','B+ tree','unique',40,36,4),('DName','Dept','SI','B+ tree','unique',40,36,4),('CCode','Course','PI','B+ tee','unique',40,60,4),('CoName','Course','SI','B+ tree','unique',40,60,4);
 /*!40000 ALTER TABLE `index_metadata` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-06 10:01:37
+-- Dump completed on 2023-11-11  9:12:56
