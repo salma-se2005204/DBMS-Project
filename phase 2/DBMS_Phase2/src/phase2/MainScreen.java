@@ -67,7 +67,7 @@ public class MainScreen extends JFrame {
 		statisticsBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				StatisticsScreen x = new StatisticsScreen();
-				x.setVisible(true);
+//				x.setVisible(true);
 				setVisible(false);
 				x.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			}
